@@ -59,10 +59,46 @@ strong { font-weight: bold; }
 .header a.brand {
     display: inline-block;
     text-indent: -9999px;
-    width: 280px;
-    height: 63px;
-    padding: 30px 0;
-    background: url(../img/logo-viterbi.png) 20px center no-repeat;
+    width: 160px;
+    height: 100px;
+    background-image: url(../img/customLogo.gif);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.header a.viterbi {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 140px;
+    height: 80px;
+	margin-top: 20px;
+	margin-right: 10px;
+    background-image: url(../img/logo-viterbi.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.header a.gsg {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 140px;
+    height: 80px;
+    margin-top: 10px;
+	margin-bottom: 30px;
+	background-image: url(../img/GSGLogo.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.header a.usc {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 140px;
+    height: 80px;
+    background-image: url(../img/usclogo.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+	margin-top: 10px;
 }
 
 .header ul.nav {
