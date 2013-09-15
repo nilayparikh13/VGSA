@@ -123,6 +123,33 @@ strong { font-weight: bold; }
     color: #fff;
 }
 
+.header ul.nav li.dropdown-toggle:hover > ul.dropdown-menu {
+    display: block;
+}
+
+.header ul.nav li.dropdown-toggle ul.dropdown-menu {
+    right:70px;
+}
+
+.header ul.nav ul.dropdown-menu  li a{
+    padding:5px;
+	font-size:10px;
+	border:0px;
+}
+.header .navbar .nav > li > .dropdown-menu:after {
+left: 75px;
+right : 85px;
+}
+
+.header .navbar .nav > li > .dropdown-menu:before {
+left: 73px;
+right : 83px;
+}
+
+.header ul.dropdown-menu:before{
+ display:none;
+}
+
 .header ul.nav li a i {
     line-height: 35px;
     color: #aaa;
@@ -130,6 +157,10 @@ strong { font-weight: bold; }
 
 .header ul.nav li a:hover i { color: #fff; }
 
+/* ----- Accordion ----- */
+.noBottomMargin{
+margin-bottom:0px;
+}
 
 /* ----- Slider ----- */
 
@@ -203,7 +234,9 @@ strong { font-weight: bold; }
     font-style: italic;
 }
 
-
+#note{
+margin-top: 0px;
+}
 /* ----- What we do ----- */
 
 .what-we-do {
