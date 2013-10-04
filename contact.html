@@ -110,25 +110,26 @@
             <div class="row">
                 <div class="contact-form span7">
                     <p>How are we doing? Tell us about improvements you would like to see implemented within VGSA, events you would like to participate in, problems or suggestions for the VGSA website, or anything else that comes to mind. We welcome your comments.</p>
-                    <form method="post" action="assets/sendmail.php">
-                        <label for="name" class="nameLabel">Name</label>
-                          <input id="name" type="text" name="name" placeholder="Enter your name...">
-                        <label for="email" class="emailLabel">Email</label>
-                          <input id="email" type="text" name="email" placeholder="Enter your email...">
-                        <label for="subject">Subject</label>
-                          <input id="subject" type="text" name="subject" placeholder="Your subject...">
-                        <label for="message" class="messageLabel">Message</label>
-                          <textarea id="message" name="message" placeholder="Your message..."></textarea>
-                        <button type="submit">Send</button>
+                    <form id="form">
+                        <label for="name" class="nameLabel">Name*</label>
+                          <input id="name" type="text" name="name" placeholder="Enter your name..." required>
+                        <label for="email" class="emailLabel">Email*</label>
+                          <input id="email" type="text" name="email" placeholder="Enter your email..." required>
+                        <label for="subject">Subject*</label>
+                          <input id="subject" type="text" name="subject" placeholder="Your subject..." required>
+                        <label for="message" class="messageLabel">Message*</label>
+                          <textarea id="message" name="message" placeholder="Your message..." required></textarea>
+                        <input id="input" type="submit" name="submit" value="Send" />
                     </form>
+					<div id="result"></div>
                 </div>
-                <div class="contact-address span5">
+               <!-- <div class="contact-address span5">
                     <h4>We Are Here</h4>
                     <div class="map"></div>
                     <h4>Address</h4>
                     <p>Viterbi Graduate Student Association <br>OHE 332 <br>Mail code: 1454 <br>3650 McClintock Ave. <br>Los Angeles CA, 90089</p>
                     
-                </div>
+                </div>-->
             </div>
         </div>
 
@@ -168,8 +169,8 @@
                 </div>
             </div>
         </footer>
-
-        <!-- Javascript -->
+		<!-- Javascript -->
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="assets/js/jquery-1.8.2.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/jquery.flexslider.js"></script>
@@ -179,7 +180,73 @@
         <script src="assets/js/jquery.ui.map.min.js"></script>
         <script src="assets/js/jquery.quicksand.js"></script>
         <script src="assets/prettyPhoto/js/jquery.prettyPhoto.js"></script>
-        <script src="assets/js/scripts.js"></script>
+		
+		<script>
+			$.fn.formToJSON = function() {
+				if($("#message").val()=="" || $("#subject").val() =="" || $("#email").val() == "" || $("#name").val()=="")
+				{
+				var items = [];
+				items.push('<h2>All Fields are mandatory</h2>');
+				$('#result').html(items.join(''));
+				return null;
+				}
+				var objectGraph = {
+				"key": "KAS9CO4klDpIe1sVc334vg",
+				"message": {
+				"text": $("#message").val(),
+				"subject": $("#subject").val(),
+				"from_email": $("#email").val(),
+				"from_name": $("#name").val(),
+				"to": [
+				{
+					"email": "vgsapres@usc.edu",
+					"name": "VGSA President"
+				},{
+					"email": "vgsa.vpcomm@gmail.com",
+					"name": "Communications VP"
+				}
+				],
+				"headers": {
+				"Reply-To": $("#email").val()
+			}
+		}
+	};
+				
+				
+				return JSON.stringify(objectGraph);
+			};
+ 
+			$.ajaxSetup({
+				contentType: "application/json; charset=utf-8",
+				dataType: "json"
+			});
+ 
+			$(document).ready(function(){
+				$('#input').click(function() {
+					var send = $("#form").formToJSON();
+					$.ajax({
+						url: "https://mandrillapp.com/api/1.0/messages/send.json",
+						type: "POST",
+						data: send,
+						error: function(xhr, error) {
+							
+						},
+						success: function(data) {
+							//have you service return the created object
+							var items = [];
+							items.push('<h2>Thank you for your email. We shall get back to you shortly.</h2>');
+							$('#result').html(items.join(''));
+							$('#form').html("");
+						}
+					});
+					return false; 
+				});
+			});
+		</script>
+		
+		
+        
+        
 
     <NOSCRIPT></body>
 
